@@ -174,7 +174,7 @@ async function main() {
     );
 
     const requiredCodeownerEntities = await getRequiredCodeowners(changedFiles, repo.data, pr, octokit);
-    console.info(`Required codeowners: ${JSON.stringify(requiredCodeownerEntities)}`);
+    console.info(`Required codeowners: ${Object.keys(requiredCodeownerEntities).join(', ')}`);
 
     const orgTeams = [];
 
