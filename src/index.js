@@ -52,9 +52,9 @@ async function getRequiredCodeowners(changedFiles, repo, pr, octokit) {
             if (!pattern.startsWith('/')) {
                 pattern = `**/${pattern}`;
             }
-            // if (pattern.endsWith('/')) {
-            //     pattern = `${pattern}**`;
-            // }
+            if (pattern.endsWith('/')) {
+                pattern = `${pattern}**`;
+            }
             for (let changedFile of changedFiles) {
                 changedFile = `/${changedFile}`;
                 if (minimatch(changedFile, pattern, { dot: true })) {
