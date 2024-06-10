@@ -50,7 +50,7 @@ async function getRequiredCodeowners(changedFiles, repo, pr, octokit) {
             updateCodeowners(owners);
         } else {
             let partialMatch = true;
-            if (pattern.startsWith('/')) {
+            if (pattern.startsWith('/') || pattern.startsWith('**')) {
                 partialMatch = false;
             }
             for (let changedFile of changedFiles) {
