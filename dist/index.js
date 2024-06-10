@@ -8865,7 +8865,7 @@ async function getRequiredCodeowners(changedFiles, repo, pr, octokit) {
             }
             for (let changedFile of changedFiles) {
                 changedFile = `/${changedFile}`;
-                if (minimatch(changedFile, pattern)) {
+                if (minimatch(changedFile, pattern, { dot: true })) {
                     updateCodeowners(owners);
                 }
             }
