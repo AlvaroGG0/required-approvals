@@ -49,13 +49,15 @@ async function getRequiredCodeowners(changedFiles, repo, pr, octokit) {
         if (pattern === '*') {
             updateCodeowners(owners);
         } else {
-            let partialMatch = true;
-            if (pattern.startsWith('/') || pattern.startsWith('**')) {
-                partialMatch = false;
+            if (!pattern.startsWith('/') && !pattern.startsWith('*')) {
+                pattern = `**/${pattern}`;
+            }
+            if (!path.extname(pattern) && !pattern.endsWith('*')) {
+                pattern = `${pattern}/**`;
             }
             for (let changedFile of changedFiles) {
                 changedFile = `/${changedFile}`;
-                if (minimatch(changedFile, pattern, { dot: true, partial: partialMatch })) {
+                if (minimatch(changedFile, pattern, { dot: true })) {
                     console.log(`Match found: File - ${changedFile}, Pattern - ${pattern}`);
                     updateCodeowners(owners);
                 }
